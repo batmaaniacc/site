@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shubhm - High School Coder</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Tailwind config for custom animations
+        const config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.6s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .preserve-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .perspective {
+            perspective: 1000px;
+        }
+        .game-mode {
+            background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+            animation: gameBackground 5s ease-in-out infinite alternate;
+        }
+        @keyframes gameBackground {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+    </style>
+</head>
+<body class="body-container" id="body">
+    <!-- Navbar -->
+    <nav class="nav-container">
+        <div class="nav-content">
+            <div class="nav-header">
+                <!-- Logo -->
+                <div class="nav-logo">
+                    <svg class="nav-logo-icon" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 3v18l5-5 5 5V3H8z"/>
+                    </svg>
+                    <span class="nav-logo-text">
+                        Shubhm.Dev
+                    </span>
+                    <span class="nav-emoji">🚀</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="nav-menu">
+                    <a href="#home" class="nav-link">
+                        Home
+                    </a>
+                    <a href="#projects" class="nav-link">
+                        Projects
+                    </a>
+                    <a href="#tools" class="nav-link">
+                        Tools
+                    </a>
+                    <a href="#about" class="nav-link">
+                        About Me
+                    </a>
+                    <a href="#contact" class="nav-link">
+                        Contact
+                    </a>
+                    <button 
+                        onclick="toggleDarkMode()"
+                        class="nav-theme-toggle"
+                        aria-label="Toggle dark mode"
+                        id="themeToggle"
+                    >
+                        <svg class="nav-icon nav-icon-sun" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        <svg class="nav-icon nav-icon-moon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                    <button 
+                        onclick="handleLockerClick()"
+                        class="nav-locker-btn"
+                        id="lockerButton"
+                    >
+                        🔒
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="nav-mobile-toggle">
+                    <button 
+                        onclick="toggleMobileMenu()"
+                        class="nav-mobile-btn"
+                        id="mobileMenuButton"
+                    >
+                        <svg class="nav-mobile-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div class="nav-mobile-menu" id="mobileMenu">
+                <div class="nav-mobile-content">
+                    <a href="#home" class="nav-mobile-link">Home</a>
+                    <a href="#projects" class="nav-mobile-link">Projects</a>
+                    <a href="#tools" class="nav-mobile-link">Tools</a>
+                    <a href="#about" class="nav-mobile-link">About Me</a>
+                    <a href="#contact" class="nav-mobile-link">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    High School Coder ✨
+                </div>
+                
+                <h1 class="hero-title">
+                    Hi, I'm Shubhm — <br class="hero-break" />
+                    your next favorite coder 🎮💻
+                </h1>
+                
+                <p class="hero-subtitle">
+                    Building cool stuff with code since 2023. I turn caffeine and curiosity into websites, 
+                    apps, and occasionally working homework timers.
+                </p>
+                
+                <div class="hero-buttons">
+                    <a 
+                        href="#projects" 
+                        class="btn-primary"
+                    >
+                        Check My Work
+                        <svg class="btn-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"/>
+                        </svg>
+                    </a>
+                    <a 
+                        href="#contact" 
+                        class="btn-secondary"
+                    >
+                        Let's Chat
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Locker Shelf Section -->
+    <section class="section-white" id="lockerShelf">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    My Digital Locker 🗃️
+                </h2>
+                <p class="section-subtitle">
+                    Random useful stuff I've built (mostly for procrastinating homework)
+                </p>
+            </div>
+            
+            <div class="grid-2 grid-gap">
+                <!-- Notepad -->
+                <div class="card card-yellow">
+                    <div class="card-header">
+                        <h3 class="card-title card-title-yellow">Quick Notes 📝</h3>
+                        <button onclick="clearNotes()" class="card-btn card-btn-yellow">Clear</button>
+                    </div>
+                    <textarea 
+                        id="notepad"
+                        placeholder="Type your notes here... (saves automatically!)"
+                        class="notepad-textarea"
+                        onchange="saveNotes()"
+                        onkeyup="saveNotes()"
+                    ></textarea>
+                </div>
+
+                <!-- Countdown Timer -->
+                <div class="card card-red">
+                    <h3 class="card-title card-title-red">Homework Timer ⏰</h3>
+                    <div class="timer-display" id="timerDisplay">25:00</div>
+                    <div class="timer-controls">
+                        <button onclick="startTimer()" class="timer-btn timer-btn-start">Start</button>
+                        <button onclick="pauseTimer()" class="timer-btn timer-btn-pause">Pause</button>
+                        <button onclick="resetTimer()" class="timer-btn timer-btn-reset">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2 grid-gap">
+                <!-- Code Snippet -->
+                <div class="card card-slate">
+                    <h3 class="card-title card-title-slate">Code Snippet 💻</h3>
+                    <div class="code-container">
+                        <pre class="code-snippet"><code>const shubhm = {
+  name: "Shubhm",
+  age: "High School",
+  skills: ["JavaScript", "Python", "React"],
+  currentlyLearning: "Node.js",
+  funFact: "I debug with console.log() 😅"
+};</code></pre>
+                    </div>
+                </div>
+
+                <!-- Meme Rotator -->
+                <div class="card card-purple">
+                    <div class="card-header">
+                        <h3 class="card-title card-title-purple">Coding Memes 😂</h3>
+                        <button onclick="nextMeme()" class="card-btn card-btn-purple">Next</button>
+                    </div>
+                    <div class="meme-display">
+                        <div id="currentMeme" class="meme-container">
+                            <p class="meme-text">When your code works on the first try:</p>
+                            <p class="meme-emoji">🎉 "Wait, that's illegal!" 🎉</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section id="tools" class="section-gray">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    My Toolkit 🛠️
+                </h2>
+                <p class="section-subtitle">
+                    Here are the tools and technologies I use to bring ideas to life. 
+                    Always learning new ones!
+                </p>
+            </div>
+            
+            <div class="grid-3">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon-container">
+                            <svg class="tool-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 3v18l5-5 5 5V3H8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="tool-title">VS Code</h3>
+                    </div>
+                    <p class="tool-description">My main code editor. Dark theme + rainbow brackets = productivity.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon-container">
+                            <svg class="tool-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="tool-title">Figma</h3>
+                    </div>
+                    <p class="tool-description">For design mockups and when I pretend to know UI/UX design.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon-container">
+                            <svg class="tool-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M13 3l3.293 3.293-7 7 1.414 1.414 7-7L21 11V3z"/>
+                                <path d="M19 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6"/>
+                            </svg>
+                        </div>
+                        <h3 class="tool-title">Replit</h3>
+                    </div>
+                    <p class="tool-description">Quick coding and sharing with classmates for group projects.</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon-container">
+                            <svg class="tool-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M3 3h18v18H3V3zm2 2v14h14V5H5z"/>
+                                <path d="M7 7h4v4H7V7zm6 0h4v4h-4V7zm0 6h4v4h-4v-4zm-6 0h4v4H7v-4z"/>
+                            </svg>
+                        </div>
+                        <h3 class="tool-title">Tailwind CSS</h3>
+                    </div>
+                    <p class="tool-description">Makes CSS actually fun instead of a nightmare. Game changer!</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon-container">
+                            <svg class="tool-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="tool-title">Vercel</h3>
+                    </div>
+                    <p class="tool-description">Hosting my projects for free (thanks Vercel!).</p>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <div class="tool-icon-container">
+                            <svg class="tool-icon" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M2 3h20v2H2V3zm0 4h20v2H2V7zm0 4h20v2H2v-2zm0 4h20v2H2v-2zm0 4h20v2H2v-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="tool-title">Terminal</h3>
+                    </div>
+                    <p class="tool-description">Where the magic happens (and where I occasionally break things).</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    My Projects 🚀
+                </h2>
+                <p class="section-subtitle">
+                    Check out some of the cool stuff I've built. Each project taught me something new!
+                </p>
+            </div>
+            
+            <div class="grid-3">
+                <!-- Project Card 1 -->
+                <div class="project-card">
+                    <div class="project-header project-header-music">
+                        <div class="project-icon-container">
+                            <div class="project-icon">🎵</div>
+                            <h3 class="project-icon-title">Music Player</h3>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Spotify Clone</h3>
+                        <p class="project-description">
+                            A music streaming app built with React and Web Audio API. Features playlists, search, and a sick UI.
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag project-tag-blue">React</span>
+                            <span class="project-tag project-tag-green">JavaScript</span>
+                            <span class="project-tag project-tag-purple">CSS</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="#" class="project-btn project-btn-primary">Demo</a>
+                            <a href="#" class="project-btn project-btn-secondary">Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="project-card">
+                    <div class="project-header project-header-todo">
+                        <div class="project-icon-container">
+                            <div class="project-icon">📝</div>
+                            <h3 class="project-icon-title">Todo App</h3>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Smart Todo List</h3>
+                        <p class="project-description">
+                            A productivity app with AI-powered task suggestions and deadline reminders. Actually helps with homework!
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag project-tag-blue">Vue.js</span>
+                            <span class="project-tag project-tag-yellow">Node.js</span>
+                            <span class="project-tag project-tag-red">MongoDB</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="#" class="project-btn project-btn-primary">Demo</a>
+                            <a href="#" class="project-btn project-btn-secondary">Code</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="project-card">
+                    <div class="project-header project-header-game">
+                        <div class="project-icon-container">
+                            <div class="project-icon">🎮</div>
+                            <h3 class="project-icon-title">Game Hub</h3>
+                        </div>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Mini Game Collection</h3>
+                        <p class="project-description">
+                            A collection of browser games including Snake, Tetris, and Pong. Built for fun during study breaks!
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag project-tag-orange">HTML5</span>
+                            <span class="project-tag project-tag-green">Canvas</span>
+                            <span class="project-tag project-tag-blue">JavaScript</span>
+                        </div>
+                        <div class="project-buttons">
+                            <a href="#" class="project-btn project-btn-primary">Demo</a>
+                            <a href="#" class="project-btn project-btn-secondary">Code</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="about" class="section-gray">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    What People Say 💬
+                </h2>
+                <p class="section-subtitle">
+                    Testimonials from classmates, teachers, and my mom
+                </p>
+            </div>
+            
+            <div class="grid-3">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar avatar-indigo">
+                            A
+                        </div>
+                        <div>
+                            <h4 class="testimonial-name">Arjun Sharma</h4>
+                            <p class="testimonial-role">Computer Science Teacher</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Shubhm always goes above and beyond in projects. His creativity and problem-solving skills are impressive for someone his age!"
+                    </p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar avatar-purple">
+                            P
+                        </div>
+                        <div>
+                            <h4 class="testimonial-name">Priya Patel</h4>
+                            <p class="testimonial-role">Study Partner</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Whenever we have group coding projects, everyone wants Shubhm on their team. He makes complex stuff look easy!"
+                    </p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar avatar-green">
+                            R
+                        </div>
+                        <div>
+                            <h4 class="testimonial-name">Rohan Gupta</h4>
+                            <p class="testimonial-role">Coding Club President</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">
+                        "Shubhm's dedication to coding is inspiring. He helped our entire coding club level up our skills through his mentorship!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">
+                    FAQ 🤔
+                </h2>
+                <p class="section-subtitle">
+                    Questions people actually ask me
+                </p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button 
+                        onclick="toggleFAQ(0)"
+                        class="faq-button"
+                    >
+                        <div class="faq-question">
+                            <span>How did you learn to code?</span>
+                            <svg class="faq-icon" id="faq-icon-0" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-content" id="faq-content-0">
+                        Started with YouTube tutorials and freeCodeCamp during the pandemic. Then got really into it and started building random stuff. Best way to learn is by doing!
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button 
+                        onclick="toggleFAQ(1)"
+                        class="faq-button"
+                    >
+                        <div class="faq-question">
+                            <span>What's your favorite programming language?</span>
+                            <svg class="faq-icon" id="faq-icon-1" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-content" id="faq-content-1">
+                        JavaScript for sure! It's everywhere - websites, apps, servers, even desktop apps. Plus the ecosystem is huge and the community is amazing.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button 
+                        onclick="toggleFAQ(2)"
+                        class="faq-button"
+                    >
+                        <div class="faq-question">
+                            <span>Any advice for beginners?</span>
+                            <svg class="faq-icon" id="faq-icon-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-content" id="faq-content-2">
+                        Start small, be consistent, and don't be afraid to break things! Build stuff you actually want to use. And remember - everyone googles basic syntax sometimes 😅
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button 
+                        onclick="toggleFAQ(3)"
+                        class="faq-button"
+                    >
+                        <div class="faq-question">
+                            <span>Do you do freelance work?</span>
+                            <svg class="faq-icon" id="faq-icon-3" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="faq-content" id="faq-content-3">
+                        Sometimes! Mostly small websites for local businesses or helping classmates with their projects. Hit me up if you need something built!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Contact -->
+                <div>
+                    <h3 class="footer-section-title">
+                        <svg class="footer-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 3v18l5-5 5 5V3H8z"/>
+                        </svg>
+                        Shubhm.Dev
+                    </h3>
+                    <p class="footer-description">
+                        High school coder, future tech entrepreneur, 
+                        and occasional homework procrastinator.
+                    </p>
+                    <div class="footer-contact">
+                        <svg class="footer-contact-icon" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                        <a href="mailto:your.affiliator@gmail.com" class="footer-contact-link">
+                            your.affiliator@gmail.com
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="footer-section-title">Quick Links</h3>
+                    <ul class="footer-links">
+                        <li>
+                            <a href="#home" class="footer-link">Home</a>
+                        </li>
+                        <li>
+                            <a href="#projects" class="footer-link">Projects</a>
+                        </li>
+                        <li>
+                            <a href="#tools" class="footer-link">Tools</a>
+                        </li>
+                        <li>
+                            <a href="#about" class="footer-link">About Me</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Meme of the Week -->
+                <div>
+                    <h3 class="footer-section-title">Meme of the Week</h3>
+                    <div class="footer-meme">
+                        <p class="footer-meme-title">When the code works on the first try:</p>
+                        <div class="footer-meme-content">
+                            "Wait, that's illegal!" 😱
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-divider">
+                <p class="footer-copyright">
+                    &copy; 2024 Shubhm. Made with ❤️ and lots of ☕ during study breaks.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let darkMode = false;
+        let secretMode = false;
+        let clickCount = 0;
+        let timerInterval = null;
+        let timerMinutes = 25;
+        let timerSeconds = 0;
+        let memeIndex = 0;
+
+        const memes = [
+            {
+                title: "When your code works on the first try:",
+                content: '🎉 "Wait, that\'s illegal!" 🎉'
+            },
+            {
+                title: "When you fix a bug but break 3 other things:",
+                content: '😅 "Task failed successfully" 😅'
+            },
+            {
+                title: "When someone asks to see your code:",
+                content: '😰 "It works on my machine!" 😰'
+            },
+            {
+                title: "When you finally understand recursion:",
+                content: '🤯 *mind blown* 🤯'
+            }
+        ];
+
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            const body = document.getElementById('body');
+            const html = document.documentElement;
+            
+            if (darkMode) {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function handleLockerClick() {
+            clickCount++;
+            if (clickCount === 3) {
+                secretMode = true;
+                clickCount = 0;
+                document.getElementById('body').classList.add('game-mode');
+                alert('🎮 Secret gaming mode activated! 🎮');
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'block';
+            } else {
+                menu.style.display = 'none';
+            }
+        }
+
+        function saveNotes() {
+            const notepad = document.getElementById('notepad');
+            localStorage.setItem('notes', notepad.value);
+        }
+
+        function clearNotes() {
+            document.getElementById('notepad').value = '';
+            localStorage.removeItem('notes');
+        }
+
+        function startTimer() {
+            if (!timerInterval) {
+                timerInterval = setInterval(() => {
+                    if (timerSeconds === 0) {
+                        if (timerMinutes === 0) {
+                            clearInterval(timerInterval);
+                            timerInterval = null;
+                            alert('⏰ Time\'s up! Take a break! ⏰');
+                            return;
+                        }
+                        timerMinutes--;
+                        timerSeconds = 59;
+                    } else {
+                        timerSeconds--;
+                    }
+                    updateTimerDisplay();
+                }, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            timerMinutes = 25;
+            timerSeconds = 0;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const display = document.getElementById('timerDisplay');
+            const mins = timerMinutes.toString().padStart(2, '0');
+            const secs = timerSeconds.toString().padStart(2, '0');
+            display.textContent = `${mins}:${secs}`;
+        }
+
+        function nextMeme() {
+            memeIndex = (memeIndex + 1) % memes.length;
+            const memeDiv = document.getElementById('currentMeme');
+            const meme = memes[memeIndex];
+            memeDiv.innerHTML = `
+                <p class="font-medium text-purple-800 dark:text-purple-300 mb-2">${meme.title}</p>
+                <p class="text-2xl">${meme.content}</p>
+            `;
+        }
+
+        function toggleFAQ(index) {
+            const content = document.getElementById(`faq-content-${index}`);
+            const icon = document.getElementById(`faq-icon-${index}`);
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                icon.classList.add('rotate-180');
+            } else {
+                content.style.display = 'none';
+                icon.classList.remove('rotate-180');
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                darkMode = true;
+                document.documentElement.classList.add('dark');
+            }
+
+            // Load saved notes
+            const savedNotes = localStorage.getItem('notes');
+            if (savedNotes) {
+                document.getElementById('notepad').value = savedNotes;
+            }
+
+            // Initialize timer display
+            updateTimerDisplay();
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
